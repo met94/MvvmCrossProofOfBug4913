@@ -1,0 +1,22 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Views;
+using Android.Widget;
+using MyXamarinApp.Core.ViewModels.Main;
+using MvvmCross.Platforms.Android.Presenters.Attributes;
+
+namespace MyXamarinApp.Droid.Views.Main
+{
+    [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame)]
+    public class MainFragment : BaseFragment<MainContainerViewModel>
+    {
+        protected override int FragmentLayoutId => Resource.Layout.fragment_main;
+    }
+}
