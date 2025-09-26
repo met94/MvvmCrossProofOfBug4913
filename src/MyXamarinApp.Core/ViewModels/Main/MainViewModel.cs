@@ -3,25 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using MvvmCross;
+using MvvmCross.Commands;
 using MvvmCross.Navigation;
 
 namespace MyXamarinApp.Core.ViewModels.Main
 {
     public class MainViewModel : BaseViewModel
     {
-        int navigationCounter = 0;
+        public IMvxNavigationService NavigationService => Mvx.IoCProvider.Resolve<IMvxNavigationService>();
 
-        public override async void ViewAppeared()
-        {
-            base.ViewAppeared();
-            if(navigationCounter > 1)
-            {
-                return;
-            }
+        public MvxAsyncCommand NavigateCommand => new MvxAsyncCommand(() => NavigationService.Navigate<MainContainerViewModel, string>("Navigate1"));
 
-            await Task.Delay(1000);
-            await Mvx.IoCProvider.Resolve<IMvxNavigationService>().Navigate<MainContainerViewModel, string>(navigationCounter == 0 ? "Initial title" : "Other title");
-            navigationCounter++;
-        }
+        public MvxAsyncCommand Navigate2Command => new MvxAsyncCommand(() => NavigationService.Navigate<MainContainerViewModel, string>("Navigate2"));
     }
 }
